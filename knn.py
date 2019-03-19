@@ -45,5 +45,23 @@ with open('haberman.data', 'r') as f:
 		#atrib[3] - Survival status (class attribute)
 		amostras.append([int(atrib[0]),int(atrib[1]),int(atrib[2]),int(atrib[3])])
 
+p = 0.6
+_, rotulo1, rotulo2 = info_dataset(amostras, verbose=False)
 
-print(info_dataset(amostras))
+treinamento, teste = [], []
+max_rotulo1, max_rotulo2 = int(p* rotulo1), int(p*rotulo2)
+total_rotulo1, total_rotulo2 = 0, 0
+
+for amostra in amostras:
+	if (total_rotulo1 + total_rotulo2) < (max_rotulo1 + max_rotulo2):
+		treinamento.append(amostra)
+		if amostra[-1] == 1 and total_rotulo1 < max_rotulo1:
+			total_rotulo1 += 1
+		else:
+			total_rotulo2 += 1
+	else:
+		teste.append(amostra)
+
+info_dataset(treinamento)
+info_dataset(teste)
+info_dataset(amostras)
