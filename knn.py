@@ -101,5 +101,16 @@ for amostra in amostras:
 		teste.append(amostra)
 
 
-print(teste[10])
-print(knn(treinamento, teste[10], K=13))
+acertos = 0
+K = 15
+
+for amostra in teste:
+	classe = knn(treinamento, amostra, K)
+	#print(amostra, classe)
+
+	if amostra[-1] == classe:
+		acertos += 1
+print('Total de treinamentos: %d' % len(treinamento))
+print('Total de teste: %d' % len(teste))
+print('Total de acertos: %d' % acertos)
+print('Porcentagem de acertos: %.2f%%' % (100 * acertos / len(teste)))
