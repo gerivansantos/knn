@@ -17,6 +17,24 @@ import math
 
 amostras = []
 
+# Function print information of dataset
+def info_dataset(amostras, verbose=True):
+	if verbose:
+		print('Total de Amostras: %d' % len(amostras))
+	
+	rotulo1, rotulo2 = 0, 0	
+	for amostra in amostras:
+		if amostra[-1] == 1:
+			rotulo1 += 1
+		else:
+			rotulo2 += 1
+
+	if verbose:
+		print('Total Rotulos 1: %d' % rotulo1)
+		print('Total Rotulos 2: %d' % rotulo2)
+
+	return [len(amostras), rotulo1, rotulo2]
+
 with open('haberman.data', 'r') as f:
 	for linha in f.readlines():
 		atrib = linha.replace('\n', '').split(',')
@@ -27,4 +45,5 @@ with open('haberman.data', 'r') as f:
 		#atrib[3] - Survival status (class attribute)
 		amostras.append([int(atrib[0]),int(atrib[1]),int(atrib[2]),int(atrib[3])])
 
-print(amostras)
+
+print(info_dataset(amostras))
