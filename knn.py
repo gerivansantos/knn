@@ -35,6 +35,15 @@ def info_dataset(amostras, verbose=True):
 
 	return [len(amostras), rotulo1, rotulo2]
 
+# Function to calculate the distance euclidiana
+def dist_euclidiana(p, q):
+	dim = len(p)
+	soma = 0
+   
+	for i in range(dim-1):
+		soma += math.pow(p[i] - q[i], 2)
+	return math.sqrt(soma)
+
 with open('haberman.data', 'r') as f:
 	for linha in f.readlines():
 		atrib = linha.replace('\n', '').split(',')
@@ -62,6 +71,7 @@ for amostra in amostras:
 	else:
 		teste.append(amostra)
 
-info_dataset(treinamento)
-info_dataset(teste)
-info_dataset(amostras)
+# teste da distância euclidiana
+v1 = [1, 2, 3]
+v2 = [2, 1, 5]
+print(dist_euclidiana(v1, v2))
