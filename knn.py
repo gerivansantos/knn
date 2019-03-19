@@ -44,6 +44,35 @@ def dist_euclidiana(p, q):
 		soma += math.pow(p[i] - q[i], 2)
 	return math.sqrt(soma)
 
+# Code Implementation KNN
+def knn(treinamento, nova_amostra, K):
+	dists = {}
+	tam_treino = len(treinamento)
+
+	# calcula a distância euclidiana da nova amostra para
+	# todos od outros exemplos do conjunto de treinamento
+
+	for i in range(tam_treino):
+		d = dist_euclidiana(treinamento[i], nova_amostra)
+		dists[i] = d
+
+	# obtém as chaves (índices) dos k-vizinhos mais próximos
+	k_vizinhos = sorted(dists, key=dists.get)[:K]
+
+	# votação majoritária
+	qtd_rotulo1, qtd_rotulo2 = 0, 0
+
+	for indice in k_vizinhos:
+		if treinamento[indice][-1] == 1:
+			qtd_rotulo1 += 1
+		else:
+			qtd_rotulo2 += 1
+
+	if qtd_rotulo1 > qtd_rotulo2:
+		return 1
+	else:
+		return 2
+
 with open('haberman.data', 'r') as f:
 	for linha in f.readlines():
 		atrib = linha.replace('\n', '').split(',')
@@ -71,7 +100,6 @@ for amostra in amostras:
 	else:
 		teste.append(amostra)
 
-# teste da distância euclidiana
-v1 = [1, 2, 3]
-v2 = [2, 1, 5]
-print(dist_euclidiana(v1, v2))
+
+print(teste[10])
+print(knn(treinamento, teste[10], K=13))
